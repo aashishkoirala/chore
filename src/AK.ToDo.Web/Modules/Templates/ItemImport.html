@@ -1,0 +1,18 @@
+﻿<!-- Error message, if any -->    
+<div class="alert alert-error" ng-show="vm.isErrorReceived" ng-bind="vm.errorReceived"></div>
+
+<!-- Success message, if any -->    
+<div class="alert alert-info" ng-show="vm.isSuccess">Import successful.</div>
+
+<!-- Import UI -->
+<textarea
+    class="input-block-level"
+    style="min-height: 400px" 
+    placeholder=
+        "Type (or more likely Paste) your list of tasks here. Include due dates separated by tabs. Optionally, you can also include start dates separated by yet another tab. E.g. My task{TAB}11/23/2013 or My task{TAB}11/23/2013{TAB}11/20/2013."
+    ng-model="vm.importData">
+</textarea>
+<hr/>
+<button type="button" class="btn btn-primary pull-right" ng-click="vm.importItems()">
+    <i class="icon-upload"></i>&nbsp;Import
+</button>

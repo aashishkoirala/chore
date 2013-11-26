@@ -1,0 +1,9 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(TargetDir)AK.Commons.dll" #>
+<#@ assembly name="$(TargetDir)AK.Modeling.TextTemplating.dll" #>
+<#@ assembly name="$(TargetDir)AK.ToDo.Model.dll" #>
+<#@ import namespace="AK.Modeling.TextTemplating.Entities" #>
+<#@ import namespace="AK.ToDo.Model" #>
+<#@ output extension=".generated.cs" #>
+<#= EntityUtility.GenerateEntitiesFromResources("AK.ToDo.Contracts.DataAccess.Entities", typeof(Stub).Assembly, "AK.ToDo.Model.Entities.json") #>

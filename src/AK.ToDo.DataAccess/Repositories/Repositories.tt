@@ -1,0 +1,11 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(TargetDir)AK.Commons.dll" #>
+<#@ assembly name="$(TargetDir)AK.Modeling.TextTemplating.dll" #>
+<#@ assembly name="$(TargetDir)AK.ToDo.Model.dll" #>
+<#@ import namespace="AK.Modeling.TextTemplating.Entities" #>
+<#@ import namespace="AK.ToDo.Model" #>
+<#@ output extension=".generated.cs" #>
+using AK.ToDo.Contracts.DataAccess.Entities;
+using AK.ToDo.Contracts.DataAccess.Repositories;
+<#= EntityUtility.GenerateRepositoriesFromResources("AK.ToDo.DataAccess.Repositories", typeof(Stub).Assembly, "AK.ToDo.Model.Entities.json") #>

@@ -1,0 +1,35 @@
+﻿[{	Name: "AppUser",
+	Members: {
+		"Id" : { "Type" : "Guid", "IsPrimaryKey" : "true" },
+		"UserName" : { "Type" : "string" },
+		"CategoryList" : { "Type" : "System.Collections.Generic.IList<ToDoCategory>" },
+		"ToDoList" : { "Type" : "System.Collections.Generic.IList<ToDoItem>" }
+	}
+}, 
+{	Name: "ToDoCategory",
+	Members: {    
+		"Id" : { "Type" : "Guid", "IsPrimaryKey" : "true" },
+		"Name" : { "Type" : "string" },
+		"ParentId" : { "Type" : "Guid?" },
+		"AppUserId" : { "Type" : "Guid" }
+	}
+},
+{	Name: "ToDoItem",
+	Members: {    
+		"Id" : { "Type" : "Guid", "IsPrimaryKey" : "true" },
+		"Description" : { Type : "string" },
+		"State" : { Type : "string" },
+		"ScheduledStartDate" : { Type : "DateTime?" },
+		"ScheduledEndDate" : { Type : "DateTime" },
+		"ActualStartDate" : { Type : "DateTime?" },
+		"ActualEndDate" : { Type : "DateTime?" },
+		"AppUserId" : { "Type" : "Guid" }
+	}
+},
+{	Name: "ItemCategory",
+	Members: {
+		"Id" : { "Type" : "Guid", "IsPrimaryKey" : "true" },
+		"ItemId" : { Type : "Guid" },
+		"CategoryId" : { Type : "Guid" }
+	}
+}]

@@ -1,0 +1,47 @@
+﻿<div class="sidebar left well well-small font-smaller" ng-controller="categoriesCtrl" ng-show="vm.isInitialized">
+    
+    <h6>CATEGORIES</h6>
+    
+    <!-- Error message, if any -->
+    <div class="alert alert-error" ng-show="vm.isErrorReceived" ng-bind="vm.errorReceived"></div>
+    
+    <!-- No category message -->
+    <div class="alert alert-info" ng-show="vm.categoryList.length == 0">You have no categories defined.<br/>You can add one right here.</div>
+
+    <!-- Category List -->
+    <span ng-show="vm.isInitialized" ng-repeat="category in vm.categoryList">
+        {{category.getIndent('··')}}
+        <input class="checkbox" type="checkbox" ng-model="category.IsSelected"/>&nbsp;
+        {{category.Name}}
+        <a href="#" ng-click="vm.editedCategory = category">
+            <i class="icon-edit" title="Edit"></i>
+        </a>
+        <a href="#" ng-click="vm.deleteCategory(category.Id)">
+            <i class="icon-remove" title="Remove"></i>
+        </a>
+        <br/>
+    </span>
+
+    <hr/>
+
+    <!-- New Category -->
+    <div ng-show="vm.editedCategory == null">
+        <h6>CREATE NEW</h6>
+        <input class="input-medium font-small" type="text" ng-model="vm.newCategory.Name" placeholder="Category Name"/><br/>
+        Nest Under:<br/>
+        <select class="font-small" ng-model="vm.newCategory.ParentId" ng-options="c.Id as c.getIndent('···') + ' ' + c.Name for c in vm.categoryList"></select><br/>
+        <button type="button" class="btn btn-small btn-info pull-right" ng-click="vm.createCategory()" ng-disabled="vm.newCategory.Name == ''">Create</button>
+    </div>
+
+    <!-- Edit Category -->
+    <div ng-show="vm.editedCategory != null">
+        <h6>EDIT CATEGORY</h6>
+        <input class="input-medium font-small" type="text" ng-model="vm.editedCategory.Name" placeholder="Category Name"/><br/>
+        Nest Under:<br/>
+        <select class="font-small" ng-model="vm.editedCategory.ParentId" ng-options="c.Id as c.getIndent('···') + ' ' + c.Name for c in vm.categoryList"></select><br/>
+        <button type="button" class="btn btn-small pull-right" ng-click="vm.editedCategory = null">Cancel</button>
+        <span class="pull-right">&nbsp;&nbsp;</span>
+        <button type="button" class="btn btn-small btn-info pull-right" ng-click="vm.updateCategory()" ng-disabled="vm.editedCategory.Name == ''">Update</button>
+    </div>
+
+</div>

@@ -1,0 +1,42 @@
+﻿{
+    Minify: false,
+    BundleItems: [{
+            Type: "Css",
+            Path: "~/Content/Bundles/Styles",
+            IncludedFiles: [
+                "~/Content/css/bootstrap.min.css",
+                "~/Content/css/app.css"
+            ]
+        },
+        {
+            Type: "JavaScript",
+            Path: "~/Content/Bundles/Scripts/Libraries",
+            IncludedFiles: [
+                "~/Scripts/jquery-1.9.1.min.js",
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/angular.min.js",
+                "~/Scripts/angular-resource.min.js",
+                "~/Scripts/angular-route.min.js"
+            ]
+        },
+        {
+            Type: "JavaScript",
+            Path: "~/Content/Bundles/Scripts/Modules",
+            IncludedFiles: [
+				"~/Modules/Common.js",
+				"~/Modules/DataContracts/ToDoCategory.js",
+				"~/Modules/DataContracts/ToDoItem.js",
+				"~/Modules/DataContracts/ToDoItemListRequest.js",
+				"~/Modules/Services/CategoryService.js",
+				"~/Modules/Services/ItemService.js",
+				"~/Modules/Services/UserNameService.js",
+				"~/Modules/ViewModels/CategoriesViewModel.js",
+				"~/Modules/ViewModels/ItemEditViewModel.js",
+				"~/Modules/ViewModels/ItemListViewModel.js",
+				"~/Modules/ViewModels/ItemImportViewModel.js",
+				"~/Modules/ViewModels/HeaderViewModel.js",
+				"~/Modules/App.js"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,64 @@
+﻿<div>
+    <!-- Error message, if any -->    
+    <div class="alert alert-error" ng-show="vm.isErrorReceived" ng-bind="vm.errorReceived"></div>
+    
+    <!-- Filters for "Other" -->
+    <div class="well well-small font-small" ng-show="vm.isInitialized && vm.itemListRequest.Type == 'Other'">
+        <span class="left">State:&nbsp;</span>
+        <select class="font-small" ng-model="vm.itemListRequest.StateAsString" ng-options="i.m_Item1 as i.m_Item2 for i in vm.itemStateList"></select><br/>
+
+        <span class="left">Due On:&nbsp;</span>
+        <input type="date" class="left font-small" ng-model="vm.itemListRequest.ScheduledEndDateAsString"/>
+
+        <span class="left">&nbsp;&nbsp;&nbsp;Done On:&nbsp;</span>
+        <input type="date" class="font-small" ng-model="vm.itemListRequest.ActualEndDateAsString"/><br/>
+
+        <span class="left">Start By:&nbsp;</span>
+        <input type="date" class="left font-small" ng-model="vm.itemListRequest.ScheduledStartDateAsString"/>
+
+        <span class="left">&nbsp;&nbsp;&nbsp;Started On:&nbsp;</span>
+        <input type="date" class="font-small" ng-model="vm.itemListRequest.ActualStartDateAsString"/><hr/>
+
+        <button type="button" class="btn btn-primary pull-right font-small" ng-click="vm.loadItemList()">
+            <i class="icon-refresh"></i>&nbsp;Refresh
+        </button>
+        <br/><br/>
+    </div>
+    
+    <!-- No item message -->
+    <div class="alert alert-info" ng-show="vm.isInitialized && vm.isFilteredItemListEmpty">No tasks matching the selected criteria.</div>
+
+    <!-- Item List -->
+    <table class="table table-condensed table-striped table-bordered" ng-show="vm.isInitialized">
+        <tr ng-repeat="item in vm.getFilteredItemList()">
+            
+            <td class="cell cell-icon"><input type="checkbox" class="checkbox" ng-model="item.IsSelected"/></td>
+            
+            <td class="pointer cell cell-icon">
+                <i class="icon-play" title="Start Task" 
+                   ng-show="item.ScheduledStartDateAsString != '' && (item.StateAsString == 'NotStarted' || item.StateAsString == 'Paused')" 
+                   ng-click="vm.startItem(item)"></i>
+                <i class="icon-pause"  title="Pause Task"
+                   ng-show="item.ScheduledStartDateAsString != '' && (item.StateAsString == 'InProgress')" 
+                   ng-click="vm.pauseItem(item)"></i>
+            </td>
+
+            <td class="pointer cell cell-icon">
+                <i class="icon-check"  title="Mark As Done" 
+                   ng-show="(item.ScheduledStartDateAsString != '' && item.StateAsString == 'InProgress') || (item.ScheduledStartDateAsString == '' && item.StateAsString != 'Done')" 
+                   ng-click="vm.completeItem(item)"></i>
+            </td>
+
+            <td class="pointer" ng-click="vm.focusItem(item)">
+                <span ng-bind="item.Description"></span><br/>
+                <span class="font-xsmall muted" ng-bind="item.getSummaryDescription()"></span>
+                <i class="icon-asterisk" title="This task is selected for editing." ng-show="vm.focusedItem == item"></i>
+            </td>
+
+            <td class="pointer cell cell-icon">
+                <i class="icon-remove" title="Remove Task" ng-click="vm.deleteItem(item)"></i>
+            </td>
+        </tr>
+    </table>
+
+</div>

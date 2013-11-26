@@ -1,0 +1,34 @@
+﻿@{ Layout = null; }
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>To Do</title>
+        @Styles.Render("~/Content/Bundles/Styles")
+        @Scripts.Render("~/Content/Bundles/Scripts/Libraries")
+    </head>
+    <body class="container">
+        <div class="row">
+            <div style="width: 100%; text-align: center">
+                <div>
+                    <span class="muted" style="font-size: 100px;"><br/><br/>to<b>do</b></span><br/>
+                    <h4 class="muted text-center">by <a class="muted" href="http://aashishkoirala.github.com">Aashish Koirala</a></h4><br/>
+                    <a href="@Url.Action("Login")">
+                        <img style="width:256px;height:54px" width="256" height="54"
+                             alt="Sign in with Google" src="@Url.Content("~/Content/images/google-signin-base.png")" 
+                             onmouseover="this.src='@Url.Content("~/Content/images/google-signin-hover.png")'"
+                             onmouseout="this.src='@Url.Content("~/Content/images/google-signin-base.png")'"
+                             onmousedown="this.src='@Url.Content("~/Content/images/google-signin-press.png")'"
+                             onmouseup="this.src='@Url.Content("~/Content/images/google-signin-base.png")'" />
+                    </a>
+                    <br/>
+                    <img src="@Url.Content("~/Content/images/google-signin-base.png")" style="display: none"/>
+                    <img src="@Url.Content("~/Content/images/google-signin-press.png")" style="display: none"/>
+                    <img src="@Url.Content("~/Content/images/google-signin-hover.png")" style="display: none"/>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

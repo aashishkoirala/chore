@@ -1,0 +1,35 @@
+﻿<div class="container-fluid">
+    <div class="row-fluid" ng-controller="headerCtrl">
+        
+        <!-- Banner -->
+        <div class="span4">
+            <h2 class="muted" style="font-weight: normal">to<b>do</b></h2>
+        </div>
+        
+        <!-- Task Criteria Bar -->
+        <div class="span5 pagination" ng-show="vm.isInitialized">
+            <ul>
+                <li ng-repeat="item in vm.itemListTypeList" class="{{vm.getTextBasedOnItemListTypeIsActive(item.m_Item1, 'active', '')}}">
+                    <a href="#/Items/{{item.m_Item1}}" ng-bind="item.m_Item2"></a>
+                </li>
+                <li>
+                    <a href="#/Import">Import</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="span1">
+            <br/>
+            <div class="alert alert-info" ng-show="vm.isWaitingForResponse">Working...</div>
+            <div class="alert alert-error" ng-show="vm.isErrorReceived" ng-bind="vm.errorReceived"></div>
+        </div>
+
+        <!-- User Info -->
+        <div class="span2 pull-right text-right" ng-show="vm.isInitialized">
+            <h6>
+                <span ng-bind="vm.userName"></span><br/>
+                <a href="../Logout">Logout</a>
+            </h6>
+        </div>
+    </div>
+</div>
