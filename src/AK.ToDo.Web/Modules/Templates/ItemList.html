@@ -50,7 +50,7 @@
             </td>
 
             <td class="pointer" ng-click="vm.focusItem(item)">
-                <span class="item.getDescriptionCssClass()" ng-bind="item.Description"></span><br/>
+                <span class="{{item.getDescriptionCssClass()}}" ng-bind="item.Description"></span><br/>
                 <span class="font-xsmall muted" ng-bind="item.getSummaryDescription()"></span>
                 <i class="icon-asterisk" title="This task is selected for editing." ng-show="vm.focusedItem == item"></i>
             </td>
