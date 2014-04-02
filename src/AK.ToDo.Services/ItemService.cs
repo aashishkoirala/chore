@@ -245,16 +245,16 @@ namespace AK.ToDo.Services
             switch (request.Type)
             {
                 case ItemListType.Today:
-                    query = query.Where(x => x.ScheduledStartDate == request.Today ||
-                                             x.ScheduledEndDate == request.Today);
+                    query = query.Where(x => x.ScheduledStartDate <= request.Today ||
+                                             x.ScheduledEndDate <= request.Today);
                     break;
 
                 case ItemListType.DueToday:
-                    query = query.Where(x => x.ScheduledEndDate == request.Today);
+                    query = query.Where(x => x.ScheduledEndDate <= request.Today);
                     break;
 
                 case ItemListType.StartToday:
-                    query = query.Where(x => x.ScheduledStartDate == request.Today);
+                    query = query.Where(x => x.ScheduledStartDate <= request.Today);
                     break;
 
                 case ItemListType.ThisWeek:
@@ -262,8 +262,8 @@ namespace AK.ToDo.Services
                     var weekEndDate = weekStartDate.AddDays(7);
 
                     query = query.Where(x =>
-                                        (x.ScheduledStartDate >= weekStartDate && x.ScheduledStartDate <= weekEndDate) ||
-                                        (x.ScheduledEndDate >= weekStartDate && x.ScheduledEndDate <= weekEndDate));
+                                        x.ScheduledStartDate <= weekEndDate ||
+                                        x.ScheduledEndDate <= weekEndDate);
                     break;
             }
 
