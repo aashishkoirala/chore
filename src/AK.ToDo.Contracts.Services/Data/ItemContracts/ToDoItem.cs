@@ -40,6 +40,7 @@ namespace AK.ToDo.Contracts.Services.Data.ItemContracts
         public Guid Id { get; set; }
         public Guid AppUserId { get; set; }
         public string Description { get; set; }
+        public bool IsLate { get; set; }
 
         [IgnoreDataMember] public ToDoItemState State { get; set; }
         [IgnoreDataMember] public DateTime? ScheduledStartDate { get; set; }

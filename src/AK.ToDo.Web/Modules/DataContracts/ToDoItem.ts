@@ -41,6 +41,7 @@ module AK.ToDo.Web.DataContracts {
         public CategoryIdList: string[] = [];
         public CategoryIdSelectedHash = {};
         public IsSelected: bool = false;
+        public IsLate: bool = false;
 
         //-------------------------------------------------------------------------------------------------------------
 
@@ -71,6 +72,14 @@ module AK.ToDo.Web.DataContracts {
             if (this.ScheduledStartDateAsString != '') state += ', Start by ' + this.ScheduledStartDateAsString;
 
             return state;
+        }
+
+        //-------------------------------------------------------------------------------------------------------------
+
+        public getDescriptionCssClass(): string {
+            // TODO: Do this less hackily with directives.
+
+            return this.IsLate ? "late-item" : "";
         }
 
         //-------------------------------------------------------------------------------------------------------------

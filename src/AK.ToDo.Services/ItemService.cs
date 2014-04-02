@@ -120,9 +120,18 @@ namespace AK.ToDo.Services
                         .ToDictionary(x => x.Key, x => x.Select(y => y.CategoryId).ToList());
                 });
 
-            var itemList = itemEntityList.Select(MapToDataContract).ToList();
-            itemList.ForEach(x => x.CategoryIdList = 
-                itemCategoryList.ContainsKey(x.Id) ? itemCategoryList[x.Id] : new List<Guid>());
+            var itemList = itemEntityList
+                .OrderBy(GetItemDateToUseForOrdering)
+                .Select(MapToDataContract).ToList();
+
+            itemList.ForEach(x =>
+            {
+                x.CategoryIdList = itemCategoryList.ContainsKey(x.Id) ? 
+                    itemCategoryList[x.Id] : new List<Guid>();
+
+                x.IsLate = x.ScheduledEndDate < request.Today ||
+                           (x.ScheduledStartDate.HasValue && x.ScheduledStartDate < request.Today);
+            });
 
             return itemList;
         }
@@ -222,13 +231,13 @@ namespace AK.ToDo.Services
             if (request.Type == ItemListType.Other)
             {
                 if (request.ScheduledStartDate.HasValue)
-                    query = query.Where(x => x.ScheduledStartDate == request.ScheduledStartDate.Value);
+                    query = query.Where(x => x.ScheduledStartDate <= request.ScheduledStartDate.Value);
                 if (request.ScheduledEndDate.HasValue)
-                    query = query.Where(x => x.ScheduledEndDate == request.ScheduledEndDate.Value);
+                    query = query.Where(x => x.ScheduledEndDate <= request.ScheduledEndDate.Value);
                 if (request.ActualStartDate.HasValue)
-                    query = query.Where(x => x.ActualStartDate == request.ActualStartDate.Value);
+                    query = query.Where(x => x.ActualStartDate <= request.ActualStartDate.Value);
                 if (request.ActualEndDate.HasValue)
-                    query = query.Where(x => x.ActualEndDate == request.ActualEndDate.Value);
+                    query = query.Where(x => x.ActualEndDate <= request.ActualEndDate.Value);
 
                 return query;
             }
@@ -259,6 +268,15 @@ namespace AK.ToDo.Services
             }
 
             return query;
+        }
+
+        private static DateTime GetItemDateToUseForOrdering(Entities.ToDoItem item)
+        {
+            if (!item.ScheduledStartDate.HasValue) return item.ScheduledEndDate;
+
+            return item.ScheduledEndDate < item.ScheduledStartDate.Value
+                       ? item.ScheduledEndDate
+                       : item.ScheduledStartDate.Value;
         }
 
         private static Entities.ToDoItem MapToEntity(ToDoItem item)
