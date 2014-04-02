@@ -129,8 +129,10 @@ namespace AK.ToDo.Services
                 x.CategoryIdList = itemCategoryList.ContainsKey(x.Id) ? 
                     itemCategoryList[x.Id] : new List<Guid>();
 
-                x.IsLate = x.ScheduledEndDate < request.Today ||
-                           (x.ScheduledStartDate.HasValue && x.ScheduledStartDate < request.Today);
+                x.IsLate = x.State != ToDoItemState.Done &&
+                           (x.ScheduledEndDate < request.Today ||
+                            (x.ScheduledStartDate.HasValue &&
+                             x.ScheduledStartDate < request.Today));
             });
 
             return itemList;
