@@ -126,13 +126,14 @@ namespace AK.ToDo.Services
 
             itemList.ForEach(x =>
             {
-                x.CategoryIdList = itemCategoryList.ContainsKey(x.Id) ? 
-                    itemCategoryList[x.Id] : new List<Guid>();
+                x.CategoryIdList = itemCategoryList.ContainsKey(x.Id)
+                                       ? itemCategoryList[x.Id]
+                                       : new List<Guid>();
 
                 x.IsLate = x.State != ToDoItemState.Done &&
                            (x.ScheduledEndDate < request.Today ||
                             (x.ScheduledStartDate.HasValue &&
-                             x.ScheduledStartDate < request.Today));
+                             x.ScheduledStartDate < request.Today && x.State != ToDoItemState.InProgress));
             });
 
             return itemList;
