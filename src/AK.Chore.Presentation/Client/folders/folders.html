@@ -1,0 +1,69 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.folders.folders.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    folders.html - View template for the "Folders" section.
+    @author Aashish Koirala
+-->
+
+<div class="col-md-2"></div>
+<div class="col-xs-12 col-md-8 well well-sm">
+    <div class="col-xs-12 col-sm-4">
+        <ul class="folder-tree">
+            <li ng-repeat="folder in folders">
+                <span ng-repeat="i in range(folder.level) track by $index">&nbsp;&nbsp;</span>
+                <i class="glyphicon glyphicon-folder-open"></i>
+                &nbsp;
+                <a href="javascript:void(0)" ng-bind="folder.name" ng-hide="state.selectedFolder == folder" ng-click="state.selectedFolder = folder"></a>
+                <input type="text" ng-model="folder.name" ng-show="state.selectedFolder == folder"/>
+                <button type="button" title="Save" ng-show="state.selectedFolder == folder" ng-disabled="isWorking() || (state.selectedFolder.name == '')" ng-click="save()">
+                    <i class="glyphicon glyphicon-ok"></i>
+                </button>
+                <button type="button" title="Cancel" ng-show="state.selectedFolder == folder" ng-click="cancel()" ng-disabled="isWorking()">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-8">
+        <a href="javascript:void(0)" ng-show="state.selectedFolder.id != 0" ng-click="add()"><i class="glyphicon glyphicon-plus"></i> Create new folder here</a><br/>
+        <a href="javascript:void(0)" ng-show="state.selectedFolder != null && state.selectedFolder.id != 0" ng-click="delete()"><i class="glyphicon glyphicon-remove"></i> Delete this folder</a><br/><br/>
+        <div class="dropdown" ng-show="state.selectedFolder != null && state.selectedFolder.id != 0">            
+            <button class="btn btn-sm dropdown-toggle" type="button" ng-disabled="isWorking()">
+                <i class="glyphicon glyphicon-move"></i>
+                Move to:
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li class="small">
+                    <a href="javascript:void(0)" ng-click="moveTo(null)">Root</a>
+                </li>
+                <li class="small" ng-repeat="folder in state.targetFolders">
+                    <a href="javascript:void(0)" ng-bind="folder.treeName" ng-click="moveTo(folder.id)"></a>
+                </li>
+            </ul>
+        </div>
+        <hr />
+        <a href="#/tasks"><i class="glyphicon glyphicon-backward"></i> Go Back</a>
+    </div>
+</div>

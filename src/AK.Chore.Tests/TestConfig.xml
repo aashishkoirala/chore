@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="ak.commons.configuration" type="AK.Commons.Configuration.Sections.ApplicationSettingsConfigurationSection, AK.Commons"/>
+  </configSections>
+  <ak.commons.configuration>
+    <applicationSettings>
+      <application>
+        <settings />
+        <tokens />
+      </application>
+      <application name="ChoreTests">
+        <settings>
+          <setting name="DatabaseKey" type="System.String" value="ChoreTests" />
+          <setting name="ak.commons.composition.modulesdirectories" type="System.String" value="." />
+          <setting name="ak.commons.dataaccess.uowfactory.ChoreTests.provider" type="System.String" value="MongoDb" />
+          <setting name="ak.commons.dataaccess.uowfactory.ChoreTests.connectionstring" type="System.String" value="mongodb://localhost" />
+          <setting name="ak.commons.dataaccess.uowfactory.ChoreTests.database" type="System.String" value="ChoreTests" />
+          <setting name="ak.commons.dataaccess.uowfactory.ChoreTests.entitykeymappertype" type="System.String" value="AK.Chore.Infrastructure.Persistence.EntityKeyMapper, AK.Chore.Infrastructure" />
+          <setting name="ak.commons.providers.logging.textfileloggingprovider.enabled" type="System.Boolean" value="true" />
+          <setting name="ak.commons.providers.logging.textfileloggingprovider.filepath" type="System.String" value="Logs" />
+          <setting name="ak.commons.providers.logging.textfileloggingprovider.filepath" type="System.String" value="Logs" />
+          <setting name="ak.commons.domaindriven.entityidgenerator.ChoreTests.provider" type="System.String" value="Database" />
+          <setting name="ak.commons.domaindriven.entityidgenerator.ChoreTests.BatchSize" type="System.Int32" value="50" />
+          <setting name="ak.commons.domaindriven.entityidgenerator.ChoreTests.DataAccess" type="System.String" value="ChoreTests" />
+          <setting name="ak.commons.domaindriven.entityidgenerator.ChoreTests.CollectionName" type="System.String" value="SequenceKey" />
+        </settings>
+        <tokens></tokens>
+      </application>
+    </applicationSettings>
+  </ak.commons.configuration>
+</configuration>

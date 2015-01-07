@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.main.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!-- 
+    main.html - Main entry page. 
+    @author Aashish Koirala    
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Chore</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="Client/main.css"/>
+        <link rel="icon" type="image/ico" href="favicon.ico" />
+        <script type="text/javascript" data-main="Client/config" src="lib/js/require"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <chore-banner></chore-banner>
+            <div ng-controller="notificationController" ng-cloak class="ng-cloak">
+                <div class="alert alert-info alert-dismissible small" ng-show="showReloadMessage">
+                    <button type="button" class="close" ng-click="showReloadMessage = false">
+                        <span>&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                    Changes have been made from another session, we suggest you <a href="javascript:void()" ng-click="reload()"><b>Reload</b></a> your session.
+                </div>
+            </div>
+            <div class="row main-content">
+                <div ng-view>
+                    <div class="col-xs-12 text-center">
+                        <br/><br/>
+                        <i class="glyphicon glyphicon-time"></i>
+                        Working...                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

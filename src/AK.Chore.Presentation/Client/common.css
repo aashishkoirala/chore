@@ -1,0 +1,87 @@
+﻿/*******************************************************************************************************************************
+ * AK.Chore.Presentation.Client.common.css
+ * Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+ * 
+ * This file is part of CHORE.
+ *  
+ * CHORE is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * CHORE is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *******************************************************************************************************************************/
+
+/* common.css - Styles used throughout the application.
+ * @author Aashish Koirala
+ */
+
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    src: url(oswald.eot);
+	src: local('Oswald'), local('Oswald-Regular'), url(oswald.eot) format('embedded-opentype'), url(oswald.woff) format('woff'), url(oswald.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+.ng-cloak {
+    display: none !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.main-content {
+    padding: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.transparent {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)" !important;
+  filter: alpha(opacity=0) !important;
+  -moz-opacity: 0 !important;
+  -khtml-opacity: 0 !important;
+  opacity: 0 !important;
+}
+
+div div span.collapsible-icon:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+}
+
+div.collapsed div span.collapsible-icon:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e080";
+}
+
+div span.collapsible-icon:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+}
+
+div.collapsed span.collapsible-icon:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e080";
+}
+
+label.form-label {
+    font-weight: normal;
+    font-size: small;
+    cursor: pointer;
+}
+
+select, input[type='checkbox'] {
+    cursor: pointer;
+}

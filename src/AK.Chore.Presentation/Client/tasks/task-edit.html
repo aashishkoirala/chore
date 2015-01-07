@@ -1,0 +1,181 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.tasks.task-edit.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    task-edit.html - View template for the "Edit Task" section.
+    @author Aashish Koirala
+-->
+
+<!-- Take full width in small screens, take 8/12 and center in larger ones -->
+<div class="col-md-2"></div>
+<div class="col-xs-12 col-md-8 well well-sm">
+    
+    <!-- Validation error messages -->
+    <div ng-show="state.validationMessages.length > 0" class="text-danger small">
+        Issues with your entry:
+        <ul>
+            <li ng-repeat="m in state.validationMessages" ng-bind="m"></li>
+        </ul>
+        <hr/>
+    </div>
+    
+    <!-- Folder picker (for new tasks) -->
+    <div ng-show="task.id == 0">
+        <label class="form-label">
+            Create in:
+            <select ng-model="task.folderId" ng-options="f.id as f.treeName for f in state.folders"></select>
+        </label>
+        <br/><br/>
+    </div>
+    
+    <!-- Task description -->
+    <textarea class="task-description" placeholder="Enter task description here" ng-model="task.description" ak-ui-elastic></textarea>
+    <br/><br/>
+    
+    <!-- Recurring? -->
+    <label class="form-label">
+        <input type="checkbox" ng-model="task.isRecurring"/>
+        This task repeats periodically
+    </label>
+    <br/><br/>
+    
+    <!-- Controls to show if not recurring -->
+    <div ng-hide="task.isRecurring">
+        
+        <!-- End Date -->
+        <label class="form-label">
+            <span class="pull-left">Finish By:&nbsp;</span>
+            <input type="text" class="pull-left pointer" ng-model="task.endDate" ng-click="openEndDatePicker($event)" datepicker-popup="MMM dd, yyyy" is-open="state.endDatePickerIsOpen"/>
+            <span class="pointer" ng-click="openEndDatePicker($event)">&nbsp;<i class="glyphicon glyphicon-calendar"></i></span>
+        </label>
+        <br/>
+        
+        <!-- End Time -->
+        <div ng-hide="task.endDate == null">
+            <label class="form-label">
+                <input type="checkbox" ng-model="state.endTimeIsSet"/>
+                Specify specific time to finish by
+            </label>
+            <timepicker ng-model="task.endTime" ng-show="state.endTimeIsSet" show-meridian="true"></timepicker>
+        </div>
+        <br/>
+        
+        <!-- Start Date -->
+        <label class="form-label" ng-hide="task.endDate == null">
+            <span class="pull-left">Start By:&nbsp;</span>
+            <input type="text" class="pull-left pointer" ng-model="task.startDate" ng-click="openStartDatePicker($event)" datepicker-popup="MMM dd, yyyy" is-open="state.startDatePickerIsOpen"/>
+            <span class="pointer" ng-click="openStartDatePicker($event)">&nbsp;<i class="glyphicon glyphicon-calendar"></i></span>
+        </label>
+        <br/>
+        
+        <!-- Start Time -->
+        <div ng-hide="task.startDate == null || task.endDate == null">
+            <label class="form-label">
+                <input type="checkbox" ng-model="state.startTimeIsSet"/>
+                Specify specific time to start by
+            </label>
+            <timepicker ng-model="task.startTime" ng-show="state.startTimeIsSet" show-meridian="true"></timepicker>
+        </div>
+        <br/>
+    </div>
+    
+    <!-- Controls to show if recurring -->
+    <div ng-show="task.isRecurring">
+        
+        <!-- Mundane? -->
+        <label class="form-label">
+            <input type="checkbox" ng-model="task.isMundane"/>
+            This is a routine/mundane task, show in calendar but not in task list
+        </label>
+        <br/><br/>
+        
+        <!-- Recurrence Type -->
+        <label class="form-label">
+            Repeat:
+            <select ng-model="task.recurrence.type" ng-options="t for t in lookup.recurrenceTypes"></select>
+        </label>
+        <br/>
+        
+        <!-- Interval -->
+        <label class="form-label">
+            Repeat every
+            <input type="text" ng-model="task.recurrence.interval" ak-ui-force-integer ak-ui-min-value="1" />
+            <span ng-bind="lookup.recurrenceTypeLabels[task.recurrence.type]"></span>
+        </label>
+        <br/>
+        
+        <!-- Recurrence Time of Day -->
+        <label class="form-label" ng-show="task.recurrence.type != 'Hourly'">
+            <input type="checkbox" ng-model="state.recurrenceTimeOfDayIsSet"/>
+            At
+            <timepicker ng-model="task.recurrence.timeOfDay" ng-show="state.recurrenceTimeOfDayIsSet" show-meridian="true"></timepicker>
+        </label>
+        <br/>
+        
+        <!-- Duration -->
+        <label class="form-label">
+            For
+            <input type="text" ng-model="state.recurrenceDurationHours" ak-ui-force-integer ak-ui-min-value="0" ak-ui-max-value="24"/>
+            hours,
+            <input type="text" ng-model="state.recurrenceDurationMinutes" ak-ui-force-integer ak-ui-min-value="0" ak-ui-max-value="59"/>
+            minutes
+        </label>
+        <br/>
+        
+        <!-- Days of Week -->
+        <div ng-show="task.recurrence.type == 'Weekly'">
+            On:
+            <label class="form-label" ng-repeat="d in lookup.daysOfWeek">
+                <input type="checkbox" ng-model="state.daysAreSet[lookup.daysOfWeek.indexOf(d)]"/>
+                <span ng-bind="d"></span>&nbsp;&nbsp;
+            </label>
+        </div>
+        <br/>
+        
+        <!-- Day of Month -->
+        <label class="form-label" ng-show="task.recurrence.type != 'Hourly'">
+            <input type="checkbox" ng-model="state.recurrenceDayOfMonthIsSet"/>
+            <span ng-show="task.recurrence.type == 'Monthly' || task.recurrence.type == 'Yearly'">On day </span>
+            <span ng-hide="task.recurrence.type == 'Monthly' || task.recurrence.type == 'Yearly'">Start on day </span>
+            <input type="text" ng-model="task.recurrence.dayOfMonth" ng-disabled="!state.recurrenceDayOfMonthIsSet" ak-ui-force-integer ak-ui-min-value="1" ak-ui-max-value="31" />
+            <span ng-show="task.recurrence.type == 'Monthly' || task.recurrence.type == 'Yearly'"> of the month</span>
+            <span ng-hide="task.recurrence.type == 'Monthly' || task.recurrence.type == 'Yearly'"> of this month</span>
+        </label>
+        <br/>
+        
+        <!-- Month of Year -->
+        <label class="form-label" ng-show="task.recurrence.type != 'Hourly'">
+            <input type="checkbox" ng-model="state.recurrenceMonthOfYearIsSet"/>
+            <span ng-show="task.recurrence.type == 'Yearly'">On </span>
+            <span ng-hide="task.recurrence.type == 'Yearly'">Start on </span>
+            <select ng-model="task.recurrence.monthOfYear" ng-options="m.number as m.name for m in lookup.monthsNumbered" ng-disabled="!state.recurrenceMonthOfYearIsSet"></select>
+            <span ng-show="task.recurrence.type == 'Yearly'"> of the year</span>
+            <span ng-hide="task.recurrence.type == 'Yearly'"> of this year</span>
+        </label>        
+    </div>
+    
+    <!-- Save and Cancel buttons -->
+    <br/>   
+    <button type="button" class="btn btn-sm btn-primary" ng-click="save()" ng-disabled="isWorking()">Save</button>
+    <button type="button" class="btn btn-sm btn-info" ng-click="cancel()" ng-disabled="isWorking()">Cancel</button>
+</div>

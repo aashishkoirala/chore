@@ -1,0 +1,68 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.filters.filters.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    filters.html - View template for the "Filters" section.
+    @author Aashish Koirala
+-->
+
+<div class="col-md-2"></div>
+<div class="col-xs-12 col-md-8 well well-sm">
+    <div class="dropdown">
+        <button class="btn btn-sm dropdown-toggle" type="button" ng-disabled="isWorking()">
+            <i class="glyphicon glyphicon-filter"></i>
+            <span ng-bind="state.currentFilter.name" class="small"></span>
+            <span class="caret"></span>
+        </button>
+        <button class="btn btn-sm" title="Add New Filter" ng-click="add()" ng-disabled="isWorking()">
+            <i class="glyphicon glyphicon-plus"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <li class="small" ng-repeat="filter in filters()">
+                <a href="javascript:void(0)" ng-bind="filter.name" ng-click="selectFilter(filter)"></a>
+            </li>
+        </ul>
+    </div>
+    <div ng-show="state.showSuccess">
+        <br/>
+        <div class="alert alert-info small">
+            Changes saved successfully!
+        </div>
+    </div>
+    <div ng-show="state.currentFilter != null">
+        <br/>
+        <label class="form-label">
+            <span class="small">Filter Name:</span>
+            <input type="text" class="small" ng-model="state.currentFilter.name"/>
+        </label>
+        <br/><br/>
+        <label class="form-label full-width">
+            <span class="small">Search Criteria:</span>
+            <chore-criterion-editor ng-model="state.currentFilter.criterion"></chore-criterion-editor>
+        </label>
+        <br/>
+        <button type="button" class="btn btn-sm btn-primary" ng-disabled="isWorking() || state.currentFilter.name == ''" ng-click="save()">Save</button>
+        <button type="button" class="btn btn-sm btn-info" ng-click="cancel()" ng-disabled="isWorking()">Cancel</button>
+        <button type="button" class="pull-right btn btn-sm btn-warning" ng-disabled="isWorking() || (filters().length <= 1)" ng-click="delete()">Delete</button>
+    </div>
+</div>

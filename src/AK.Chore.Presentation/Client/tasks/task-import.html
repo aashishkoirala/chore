@@ -1,0 +1,95 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.tasks.task-import.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    task-import.html - View template for the "Import Tasks" section.
+    @author Aashish Koirala
+-->
+
+<div class="col-md-2"></div>
+<div class="col-xs-12 col-md-8">
+    <div class="well well-sm">
+        <div class="small alert alert-info">
+            Paste the task data in the area below and hit Import.
+            There should be one line per task with the first line having field names.
+            All fields should be separated by TABs.
+            <br/><br/>
+            The following are fields you can use:<br/>
+            <ul>
+                <li>
+                    <b>Description:</b>
+                    What the task actually is; required.
+                </li>
+                <li>
+                    <b>Folder:</b>
+                    The full path of the folder (as it appears above the task description in the task list, e.g. "Personal/My Folder") where the task goes; required.
+                </li>
+                <li>
+                    <b>Finish By:</b>
+                    When to finish by, can include just a date (YYYY-MM-DD) or a date and time (YYYY-MM-DD hh:mm); required for non-recurring tasks.
+                </li>
+                <li>
+                    <b>Start By:</b>
+                    When to start by, can include just a date (YYYY-MM-DD) or a date and time (YYYY-MM-DD hh:mm); optional.
+                </li>
+                <li>
+                    <b>Recurring:</b>
+                    Whether the task is recurring, can be "Yes" or "No"; optional - defaults to "No".
+                </li>
+                <li>
+                    <b>Recurrence Type:</b>
+                    Type of recurrence, can be "Hourly", "Daily", "Weekly", "Monthly" or "Yearly"; required for recurring tasks.
+                </li>
+                <li>
+                    <b>Recurrence Interval:</b>
+                    Number of intervals to recur in (e.g. Hourly with 2 means recur every 2 hours); optional, defaults to 1 for recurring tasks.
+                </li>
+                <li>
+                    <b>Recurrence Duration:</b>
+                    The duration of the task in hh:mm format; optional, defaults to 01:00 (i.e. 1 hour) for recurring tasks.
+                </li>
+                <li>
+                    <b>Recurrence Time of Day:</b>
+                    The time of day when the task recurs; optional.
+                </li>
+                <li>
+                    <b>Recurrence Day of Month:</b>
+                    The day of month when the task recurs; optional.
+                </li>
+                <li>
+                    <b>Recurrence Days of Week:</b>
+                    For weekly recurrence, the days of week when the task recurs, comma separated list of days of the week, e.g. "Sunday,Monday,Thursday"; optional.
+                </li>
+                <li>
+                    <b>Recurrence Month of Year:</b>
+                    The month of year when the task recurs, can be one of the months, e.g. January, February etc.; optional.
+                </li>            
+            </ul>
+        </div>
+        <hr/>
+        <textarea class="full-width small" ng-model="importData" ak-ui-elastic></textarea>
+        <br/><br/>
+        <button type="button" class="btn btn-sm btn-primary" ng-disabled="isWorking() || (importData == '')" ng-click="import()">Import</button>
+        <button type="button" class="btn btn-sm btn-info" ng-click="cancel()" ng-disabled="isWorking()">Cancel</button>
+    </div>
+</div>

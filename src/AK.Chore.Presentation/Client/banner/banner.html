@@ -1,0 +1,122 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.banner.banner.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    banner.html - View template for the banner section.
+    @author Aashish Koirala
+-->
+
+<!-- Title row -->
+<div class="row title-bar">
+    
+    <!-- Title -->
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 title-bar-item">
+        <span class="title-bar-item-app-title" title="CHORE by Aashish Koirala">CHORE</span>
+    </div>
+    
+    <!-- "Working" indicator -->
+    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 small title-bar-item">
+        <div ng-show="isWorking()" class="title-bar-item-working-display">
+            <i class="glyphicon glyphicon-time"></i>
+            Working...
+        </div>
+    </div>
+    
+    <!-- Application sections bar -->
+    <div class="col-lg-6 col-md-6 col-sm-5 col-xs-5 small title-bar-item">
+        
+        <!-- Use pagination type nav for large and medium -->
+        <div class="visible-lg visible-md title-bar-item-app-sections-lg title-bar-item-app-sections-md">
+            <ul class="pagination">
+                <li class="{{currentView() == 'Tasks' ? 'active' : ''}}">
+                    <a href="#/tasks">
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        Tasks
+                    </a>
+                </li>
+                <li class="{{currentView() == 'Calendar' ? 'active' : ''}}">
+                    <a href="#/calendar">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        Calendar
+                    </a>
+                </li>
+                <li class="{{currentView() == 'Filters' ? 'active' : ''}}">
+                    <a href="#/filters">
+                        <i class="glyphicon glyphicon-filter"></i>
+                        Filters
+                    </a>
+                </li>
+                <li class="{{currentView() == 'Folders' ? 'active' : ''}}">
+                    <a href="#/folders">
+                        <i class="glyphicon glyphicon-folder-close"></i>
+                        Folders
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Use BS dropdown for small -->
+        <div class="dropdown visible-sm title-bar-item-app-sections-sm">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" ng-disabled="isWorking()">
+                <span ng-bind="currentView() == 'User' ? 'Account' : currentView()" class="small"></span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#/tasks"><i class="glyphicon glyphicon-tasks"></i>&nbsp;Tasks</a></li>
+                <li><a href="#/calendar"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Calendar</a></li>
+                <li><a href=""><i class="glyphicon glyphicon-filter"></i>&nbsp;Filters</a></li>
+                <li><a href=""><i class="glyphicon glyphicon-book"></i>&nbsp;Folders</a></li>
+            </ul>
+        </div>
+        
+        <!-- Use regular dropdown for extra small -->
+        <div class="visible-xs title-bar-item-app-sections-xs">
+            <select class="small" value="{{currentView()}}" onchange="location.href = '#/' + this.value.toLowerCase() + '/';" ng-disabled="isWorking()">
+                <option value="Tasks">Tasks</option>
+                <option value="Calendar">Calendar</option>
+                <option value="Filters">Filters</option>
+                <option value="Folders">Folders</option>
+                <option value="User">Account</option>
+            </select>            
+        </div>
+    </div>
+    
+    <!-- User and logout link -->
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 small text-right pull-right title-bar-item title-bar-item-user-info">
+        <i class="glyphicon glyphicon-user"></i>
+        <a href="#/user" ng-bind="userNickname()"></a><br/>
+        <i class="glyphicon glyphicon-log-out"></i>
+        <a href="Logout">Logout</a><br/>
+    </div>
+</div>
+
+<!-- Separator line and error box -->
+<div class="row title-bar-separator">
+    <div class="alert alert-danger alert-dismissible small" ng-show="isError()">
+        <button type="button" class="close" ng-click="isError(false)">
+            <span>&times;</span><span class="sr-only">Close</span>
+        </button>        
+        <i class="glyphicon glyphicon-warning-sign"></i>
+        <span ng-bind="errorMessage()"></span>
+    </div>
+</div>
