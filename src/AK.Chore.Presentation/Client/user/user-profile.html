@@ -1,0 +1,93 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.user.user-profile.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    user-profile.html - View template for the "User Profile" section.
+    @author Aashish Koirala
+-->
+
+<div class="container small">
+    <div data-toggle="collapse" data-target="#user_update_nickname" class="row collapsed pointer well well-sm">
+        <div class="col-xs-12">
+            <span class="collapsible-icon"></span>
+            <i class="glyphicon glyphicon-user"></i>
+            Update Nickname
+        </div>
+    </div>
+    <div id="user_update_nickname" class="collapse">
+        Nickname:<br/>
+        <input type="text" ng-model="nickname"/>
+        <button type="button" class="btn btn-sm btn-primary pull-right" ng-disabled="isWorking() || (nickname == '')" ng-click="updateNickname()">Apply</button>
+        <br/><hr/>
+    </div>
+    <div data-toggle="collapse" data-target="#user_upload_data" class="row collapsed pointer well well-sm">
+        <div class="col-xs-12">
+            <span class="collapsible-icon"></span>
+            <i class="glyphicon glyphicon-upload"></i>
+            Upload Data
+        </div>
+    </div>
+    <div id="user_upload_data" class="panel-collapse collapse">
+        <span class="text-warning">
+            <strong>Warning!</strong>
+            This operation cannot be undone!
+        </span><br/>
+        If you have previously downloaded your user data from a different account and would like to upload your data into this account,
+        paste the downloaded JSON data here, and click Upload.<br/><br/>
+        <textarea ng-model="userUploadData" class="col-xs-12"></textarea><br/><br/><br/>
+        <button type="button" class="btn btn-sm btn-primary pull-right" ng-disabled="isWorking() || (userUploadData == '')" ng-click="uploadData()">Upload</button>
+        <br/><hr/>
+    </div>
+    <div data-toggle="collapse" data-target="#user_download_data" class="row collapsed pointer well well-sm">
+        <div class="col-xs-12">
+            <span class="collapsible-icon"></span>
+            <i class="glyphicon glyphicon-download"></i>
+            Download Data
+        </div>
+    </div>
+    <div id="user_download_data" class="panel-collapse collapse">
+        This lets you download all your data as JSON in case you want to keep a backup or if you would like to keep your
+        data before you delete your account. Once downloaded, the JSON data will populate the textbox below. You can then
+        copy that data to the clipboard and do with it what you will.<br/><br/>
+        <button type="button" class="btn btn-sm btn-primary" ng-click="downloadData()" ng-disabled="isWorking()">Download</button><br/><br/>
+        <textarea ng-model="userDownloadData" class="col-xs-12"></textarea>
+        <br/><hr/>
+    </div>
+    <div data-toggle="collapse" data-target="#user_delete_account" class="row collapsed pointer well well-sm">
+        <div class="col-xs-12">
+            <span class="collapsible-icon"></span>
+            <i class="glyphicon glyphicon-remove"></i>
+            Delete Account
+        </div>
+    </div>
+    <div id="user_delete_account" class="panel-collapse collapse">
+        <span class="text-warning">
+            <strong>Warning!</strong>
+            This operation cannot be undone!
+        </span><br/>
+        If you would like all traces of your account deleted, click the Delete button below.
+        <strong>You will not be asked for confirmation.</strong>
+        <br/><br/>
+        <button type="button" class="btn btn-sm btn-danger" ng-click="deleteAccount()" ng-disabled="isWorking()">Delete My Account</button>
+    </div>
+</div>

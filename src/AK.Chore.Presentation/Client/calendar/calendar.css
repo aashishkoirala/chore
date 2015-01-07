@@ -1,0 +1,85 @@
+﻿/*******************************************************************************************************************************
+ * AK.Chore.Presentation.Client.calendar.calendar.css
+ * Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+ * 
+ * This file is part of CHORE.
+ *  
+ * CHORE is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * CHORE is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *******************************************************************************************************************************/
+
+/* calendar.css - Styles for the "calendar" section.
+ * @author Aashish Koirala
+ */
+
+.calendar-row {
+    border-bottom: 1px solid lightgray;
+}
+
+.calendar-row-top {
+    border-top: 1px solid lightgray;
+}
+
+.calendar-row-holder {
+    padding: 0;
+}
+
+.calendar-cell {
+    border-right: 1px solid lightgray;
+    padding: 0;
+}
+
+.calendar-cell-left {
+    border-left: 1px solid lightgray;
+}
+
+.calendar-cell-main {
+    width: 14.28%;
+    float: left;
+}
+
+.calendar-item {
+    padding-left: 2px;
+    padding-right: 2px;
+    border-bottom: 1px dashed grey;
+}
+
+.calendar-item-link, .calendar-item-link:link, .calendar-item-link:visited, .calendar-item-link:active {
+    color: black;
+    text-decoration: none;
+}
+
+.calendar-item-link:hover {
+    text-decoration: underline;
+}
+
+.calendar-item-1 {
+    background-color: lightblue;
+}
+
+.calendar-item-2 {
+    background-color: azure;
+}
+
+.calendar-item-3 {
+    background-color: lightgoldenrodyellow;
+}
+
+.calendar-item-4 {
+    background-color: antiquewhite;
+}
+
+.calendar-item-5 {
+    background-color: lightsteelblue;
+}

@@ -1,0 +1,120 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.calendar.calendar.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    calendar.html - View template for the "calendar" section.
+    @author Aashish Koirala
+-->
+
+<!-- Date picker (and day picker for small screens) and reload button -->
+<div class="col-xs-12 small">
+    <label class="form-label pull-left">
+        Pick a date in the week you want to view:<br/>
+        <input type="text" class="pull-left pointer small" ng-model="state.dayInWeek" ng-click="openDatePicker($event)" 
+            ng-disabled="isWorking()" datepicker-popup="MMM dd, yyyy" is-open="state.datePickerIsOpen"/>
+        <span class="pointer pull-left" ng-click="openStartDatePicker($event)">&nbsp;<i class="glyphicon glyphicon-calendar"></i></span>
+    </label>
+    <span class="pointer pull-left">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class="pointer clearfix" title="Reload" ng-click="reload()"><i class="glyphicon glyphicon-refresh"></i></span>
+    <span class="visible-xs">Pick a day to view:<br/></span>
+    <select class="visible-xs" ng-model="state.currentDay" ng-options="d as getDayName(d.dayOfWeek) for d in calendarWeek().days"
+        ng-disabled="isWorking()"></select>
+</div>
+<br/><br/><br/>
+
+<!-- Header row (regular screens) -->
+<div class="visible-sm visible-md visible-lg row small calendar-row calendar-row-top">
+    <div class="col-sm-1 text-center calendar-cell calendar-cell-left">Time</div>
+    <div class="col-sm-11 calendar-row-holder">
+        <div class="text-center calendar-cell calendar-cell-main" ng-repeat="d in calendarWeek().days" ng-bind="getDayName(d.dayOfWeek)"></div>
+    </div>
+</div>
+
+<!-- Day items row (regular screens) -->
+<div class="visible-sm visible-md visible-lg row small calendar-row">
+    <div class="col-sm-1 calendar-cell calendar-cell-left">
+        <div ng-repeat="i in calendarWeek().days[0].dayItems">
+            &nbsp;
+        </div>
+    </div>
+    <div class="col-sm-11 calendar-row-holder">
+        <div class="calendar-cell calendar-cell-main" ng-repeat="d in calendarWeek().days">
+            <div ng-repeat="i in d.dayItems | filter:{isBlank:true}">
+                &nbsp;
+            </div>        
+            <div class="calendar-item calendar-item-{{getFolderStyle(i.rootFolderId)}}" ng-show="showItems(d.dayItems)" ng-repeat="i in d.dayItems | filter:{isBlank:undefined}">
+                <a href="#/task/{{i.taskId}}" class="calendar-item-link" title="{{i.description}}" ng-bind="abbreviate(i.description, 30)"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hour item rows (regular screens) -->
+<div class="visible-sm visible-md visible-lg row small calendar-row" ng-repeat="h in calendarWeek().days[0].hours">
+    <div class="col-sm-1 text-center calendar-cell calendar-cell-left" ng-bind="getTimeStringFromHour(h.hour)"></div>
+    <div class="col-sm-11 calendar-row-holder">
+        <div class="calendar-cell calendar-cell-main" ng-repeat="d in calendarWeek().days">
+            <div ng-show="d.hours[h.hour].items.length == 0">&nbsp;</div>
+            <div class="calendar-item calendar-item-{{getFolderStyle(i.rootFolderId)}}" ng-repeat="i in d.hours[h.hour].items">
+                <a href="#/task/{{i.taskId}}/calendar" class="calendar-item-link" title="{{i.description}}" ng-bind="abbreviate(i.description, 30)"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row visible-xs">&nbsp;</div>
+<div class="row visible-xs">&nbsp;</div>
+
+<!-- Header row (small screens) -->
+<div class="visible-xs row small calendar-row calendar-row-top">
+    <div class="col-xs-2 text-center calendar-cell calendar-cell-left">Time</div>
+    <div class="col-sm-10 text-center calendar-cell" ng-bind="getDayName(state.currentDay.dayOfWeek)"></div>
+</div>
+
+<!-- Day items row (small screens) -->
+<div class="visible-xs row small calendar-row">
+    <div class="col-xs-2 calendar-cell calendar-cell-left">
+        <div ng-repeat="i in state.currentDay.dayItems">
+            &nbsp;
+        </div>
+    </div>
+    <div class="col-xs-10 calendar-row-holder calendar-cell">
+        <div ng-repeat="i in d.dayItems | filter:{isBlank:true}">
+            &nbsp;
+        </div>        
+        <div class="calendar-item calendar-item-{{getFolderStyle(i.rootFolderId)}}" ng-show="showItems(state.currentDay.dayItems)" ng-repeat="i in state.currentDay.dayItems | filter:{isBlank:undefined}">
+            <a href="#/task/{{i.taskId}}" class="calendar-item-link" title="{{i.description}}" ng-bind="abbreviate(i.description, 50)"></a>
+        </div>
+    </div>
+</div>
+
+<!-- Hourly item rows (small screens) -->
+<div class="visible-xs row small calendar-row" ng-repeat="h in state.currentDay.hours">
+    <div class="col-xs-2 text-center calendar-cell calendar-cell-left" ng-bind="getTimeStringFromHour(h.hour)"></div>
+    <div class="col-xs-10 calendar-row-holder calendar-cell">
+        <div ng-show="state.currentDay.hours[h.hour].items.length == 0">&nbsp;</div>
+        <div class="calendar-item calendar-item-{{getFolderStyle(i.rootFolderId)}}" ng-repeat="i in state.currentDay.hours[h.hour].items">
+            <a href="#/task/{{i.taskId}}" class="calendar-item-link" title="{{i.description}}" ng-bind="abbreviate(i.description, 50)"></a>
+        </div>
+    </div>
+</div>

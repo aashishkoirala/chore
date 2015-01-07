@@ -1,0 +1,82 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.criterion-editor.criterion-editor.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    criterion-editor.html - View template for the criterion-editor component.
+    @author Aashish Koirala
+-->
+
+<div class="table-bordered criterion-editor-container">
+    <button type="button" class="transparent" ng-show="criterion.type == 'complex'"></button>
+    <div ng-show="criterion.type != 'complex'">
+        Set Mode:
+        <button type="button" class="btn btn-sm criterion-editor-button" 
+                ng-show="criterion.type != 'complex' && criterion.type != 'true'" ng-click="setAsTrue()">
+            Include Everything
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-sm criterion-editor-button" 
+                ng-show="criterion.type != 'complex' && criterion.type != 'simple'" ng-click="setAsSimple()">
+            Normal
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-sm criterion-editor-button" 
+                ng-show="criterion.type != 'complex' && criterion.type != 'recurrence'" ng-click="setAsRecurrence()">
+            Recurring
+        </button>
+    </div>
+    <div ng-show="criterion.type == 'true'" class="criterion-editor-current-mode">
+        Current Mode: Include Everything
+    </div>
+    <div ng-show="criterion.type == 'simple'" class="criterion-editor-current-mode">
+        Current Mode: Normal
+        <select ng-model="criterion.simple.fieldName" 
+                ng-options="key as value for (key, value) in fieldNames"></select>
+        <select ng-model="criterion.simple.operatorName" 
+                ng-options="key as value for (key, value) in applicableOperatorNames(criterion.simple.fieldName)"></select>
+        <select ng-model="criterion.simple.valueName" 
+                ng-options="key as value for (key, value) in applicableValueNames(criterion.simple.fieldName, criterion.simple.operatorName)"></select>
+        <input type="text" title="{{literalHint()}}" placeholder="{{literalHint()}}" 
+               ng-model="criterion.simple.valueLiteral" ng-show="criterion.simple.valueName == 'Literal'"/>
+    </div>
+    <div ng-show="criterion.type == 'recurrence'" class="criterion-editor-current-mode">
+        Current Mode: Recurring
+        <select ng-model="criterion.recurrence.type" 
+                ng-options="key as value for (key, value) in recurrenceTypeNames"></select>
+    </div>
+    <div ng-show="criterion.type != 'complex'">
+        <div ng-repeat="(key, value) in conjunctionNames" class="pull-left">
+            <button type="button" class="btn btn-sm criterion-editor-button" ng-click="addConjunction(key)" ng-bind="value" />
+            &nbsp;&nbsp;
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div ng-if="criterion.type == 'complex'">
+        <button type="button" class="btn btn-sm criterion-editor-remove-button" ng-click="removeCriterion1()">x</button>
+        <chore-criterion-editor ng-model="criterion.complex.criterion1"></chore-criterion-editor>
+        <select class="criterion-editor-conjunction-names" 
+                ng-model="criterion.complex.conjunctionName" ng-options="key as value for (key, value) in conjunctionNames"></select><br/>
+        <button type="button" class="btn btn-sm criterion-editor-remove-button" ng-click="removeCriterion2()">x</button>
+        <chore-criterion-editor ng-model="criterion.complex.criterion2"></chore-criterion-editor>
+    </div>
+</div>

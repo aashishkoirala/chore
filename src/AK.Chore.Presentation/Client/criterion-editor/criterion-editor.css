@@ -1,0 +1,53 @@
+﻿/*******************************************************************************************************************************
+ * AK.Chore.Presentation.Client.criterion-editor.criterion-editor.css
+ * Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+ * 
+ * This file is part of CHORE.
+ *  
+ * CHORE is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * CHORE is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *******************************************************************************************************************************/
+
+/* criterion-editor.css - Styles for the criterion-editor component.
+ * @author Aashish Koirala
+ */
+
+.criterion-editor-container {
+    padding: 10px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.criterion-editor-button {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.criterion-editor-remove-button {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 0;
+}
+
+.criterion-editor-current-mode {
+    padding: 5px;
+}
+
+.criterion-editor-conjunction-names {
+    margin: 10px;
+}

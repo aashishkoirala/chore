@@ -1,0 +1,82 @@
+﻿/*******************************************************************************************************************************
+ * AK.Chore.Presentation.Client.tasks.task-list.css
+ * Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+ * 
+ * This file is part of CHORE.
+ *  
+ * CHORE is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * CHORE is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *******************************************************************************************************************************/
+
+/* task-list.css - Styles for the "Task List" section.
+ * @author Aashish Koirala
+ */
+
+.folder-picker-dropdown-menu {
+    padding-left: 5px; 
+    padding-right: 5px;
+}
+
+label.folder-picker-label {
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.task-list-item-row {
+    padding: 5px;
+    border-top: 1px dashed darkgray;
+}
+
+.task-list-item-row-in-process {
+    font-style: italic;
+}
+
+.task-list-item-action-cell {
+    padding-top: 5px;
+    text-align: center;
+}
+
+.task-list-item-folder-path, .task-list-item-folder-path:link, .task-list-item-folder-path:visited, .task-list-item-folder-path:active {
+    font-size: 10px;
+    color: gray;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.task-list-description, .task-list-description:link, .task-list-description:visited, .task-list-description:active {
+    font-size: 12px;
+    color: black;
+    text-decoration: none;
+}
+
+.task-list-item-folder-path:hover, .task-list-description:hover {
+    text-decoration: underline;
+}
+
+.task-list-description-late {
+    color: red !important;
+}
+
+.task-list-description-complete {
+    text-decoration: line-through !important;
+}
+
+.task-list-summary {
+    font-size: 9px;
+}
+
+.task-list-bottom-row {
+    padding: 5px;
+    border-bottom: 1px dashed darkgray;
+}

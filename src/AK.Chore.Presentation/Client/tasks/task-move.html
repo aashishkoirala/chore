@@ -1,0 +1,40 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.tasks.task-move.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    task-move.html - View template for the "Move Task" section.
+    @author Aashish Koirala
+-->
+
+<div class="col-md-2"></div>
+<div class="col-xs-12 col-md-8">
+    <div class="well well-sm">
+        <label class="form-label">
+            Move To:&nbsp;
+            <select ng-model="folderId" ng-options="f.id as f.treeName for f in folders"></select>
+        </label>
+        <br/><br/>
+        <button type="button" class="btn btn-sm btn-primary" ng-disabled="isWorking() || (folderId == null)" ng-click="move()">Move</button>
+        <button type="button" class="btn btn-sm btn-info" ng-click="cancel()" ng-disabled="isWorking()">Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.tasks.task-list.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    task-list.html - View template for the "Task List" section.
+    @author Aashish Koirala
+-->
+
+<div class="col-xs-12">
+    
+    <!-- Toolbar row -->
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10 col-xs-12">
+            
+            <!-- Filter picker -->
+            <chore-filter-picker class="pull-left"></chore-filter-picker>
+            <span class="pull-left">&nbsp;</span>
+            
+            <!-- Search button -->
+            <button type="button" class="btn btn-sm btn-default pull-left" title="Search" ng-click="search()" ng-disabled="isWorking()">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+            <span class="pull-left">&nbsp;</span>
+            
+            <!-- Folder picker -->
+            <chore-folder-picker class="pull-left"></chore-folder-picker>
+            <span class="pull-left">&nbsp;</span>
+            
+            <!-- Add button -->
+            <button type="button" class="btn btn-sm btn-default pull-left" title="Add New" ng-click="add()" ng-disabled="isWorking()">
+                <i class="glyphicon glyphicon-plus"></i>
+            </button>
+            <span class="pull-left">&nbsp;</span>
+            
+            <!-- Other Actions drop-down -->
+            <div class="dropdown pull-left" on-toggle="handleOtherActionsDropDownToggle(open)">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" title="Other Actions" ng-disabled="isWorking()">
+                    <i class="glyphicon glyphicon-tasks"></i>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="small visible-xs"><a href="javascript:void(0)" ng-click="reload()">Refresh</a></li>
+                    <li class="divider visible-xs"></li>
+                    <li class="small"><a href="javascript:void(0)" ng-click="selectAll()">Select All</a></li>
+                    <li class="small"><a href="javascript:void(0)" ng-click="selectNone()">Select None</a></li>
+                    <li class="divider"></li>
+                    <li class="small"><a href="#/import">Import Tasks</a></li>
+                    <li class="small" ng-show="state.canExport"><a href="#/export">Export Selected Tasks</a></li>
+                    <li class="divider" ng-show="state.canDoAnythingInBulk"></li>
+                    <li class="small" ng-show="state.canStartInBulk"><a href="javascript:void(0)" ng-click="startInBulk()">Start Selected Tasks</a></li>
+                    <li class="small" ng-show="state.canPauseInBulk"><a href="javascript:void(0)" ng-click="pauseInBulk()">Pause Selected Tasks</a></li>
+                    <li class="small" ng-show="state.canResumeInBulk"><a href="javascript:void(0)" ng-click="resumeInBulk()">Resume Selected Tasks</a></li>
+                    <li class="small" ng-show="state.canCompleteInBulk"><a href="javascript:void(0)" ng-click="completeInBulk()">Complete Selected Tasks</a></li>
+                    <li class="small" ng-show="state.canEnableRecurrenceInBulk"><a href="javascript:void(0)" ng-click="enableRecurrenceInBulk()">Enable Selected Recurrences</a></li>
+                    <li class="small" ng-show="state.canDisableRecurrenceInBulk"><a href="javascript:void(0)" ng-click="disableRecurrenceInBulk()">Disable Selected Recurrences</a></li>
+                    <li class="divider" ng-show="state.canDoAnythingInBulk"></li>
+                    <li class="small" ng-show="state.canMoveInBulk"><a href="#/move">Move Selected Tasks</a></li>
+                    <li class="small" ng-show="state.canDeleteInBulk"><a href="javascript:void(0)" ng-click="deleteInBulk()">Delete Selected Tasks</a></li>
+                </ul>
+            </div>
+            <span class="pull-left">&nbsp;</span>
+            
+            <!-- Reload button -->
+            <button type="button" class="btn btn-sm btn-default pull-left visible-sm visible-md visible-lg" title="Reload Tasks" ng-click="reload()" ng-disabled="isWorking()">
+                <i class="glyphicon glyphicon-refresh"></i>
+            </button>
+            <br/><br/>
+        </div>
+    </div>
+</div>
+
+<!-- Task list -->
+<div class="col-md-2"></div>
+<div class="col-md-7 col-xs-12">
+    
+    <!-- Task row -->
+    <div class="row task-list-item-row" ng-repeat="t in tasks()">
+        
+        <!-- Action buttons (left) -->
+        <div class="col-xs-1 task-list-item-action-cell">
+            <i title="Complete" class="glyphicon glyphicon-check pointer" ng-show="t.canComplete" ng-click="complete(t)"></i>
+            <i title="Start" class="glyphicon glyphicon-play pointer" ng-show="t.canStart" ng-click="start(t)"></i>
+            <i title="Resume" class="glyphicon glyphicon-play pointer" ng-show="t.canResume" ng-click="resume(t)"></i>
+            <i title="Pause" class="glyphicon glyphicon-pause pointer" ng-show="t.canPause" ng-click="pause(t)"></i>
+            <i title="Enable Recurrence" class="glyphicon glyphicon-repeat pointer" ng-hide="!t.isRecurring || t.recurrence.isEnabled" ng-click="enableRecurrence(t)"></i>
+            <i title="Disable Recurrence" class="glyphicon glyphicon-random pointer" ng-show="t.isRecurring && t.recurrence.isEnabled" ng-click="disableRecurrence(t)"></i>
+        </div>
+        
+        <!-- Task description area -->
+        <div class="col-xs-9 {{t.isInProcess ? 'task-list-item-row-in-process' : ''}}" style="color:grey">
+            <a href="#/move/{{t.id}}" class="task-list-item-folder-path" title="Click to move to another folder" ng-bind="t.folderPath"></a>
+            <br/>
+            <a href="#/task/{{t.id}}" 
+               class="task-list-description {{t.isLate ? 'task-list-description-late' : ''}} {{t.state == 'Completed' ? 'task-list-description-complete' : ''}}" 
+               title="{{t.isLate ? 'This task is late' : 'Click to edit'}}" ng-bind="t.description" ></a>
+            <br/>
+            <span class="task-list-summary" ng-bind="t.dateOrRecurrenceSummary"></span>
+        </div>
+
+        <!-- Action buttons (right) -->
+        <div class="col-xs-1 task-list-item-action-cell">
+            <i title="Remove" class="glyphicon glyphicon-remove pointer" ng-click="delete(t)"></i>
+        </div>
+        <div class="col-xs-1 task-list-item-action-cell">
+            <input type="checkbox" title="Select" ng-model="t.isSelected"/>
+        </div>
+    </div>
+    <div class="row task-list-bottom-row"></div>
+</div>

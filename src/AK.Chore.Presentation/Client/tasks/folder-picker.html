@@ -1,0 +1,45 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.tasks.folder-picker.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    folder-picker.html - View template for the "folder-picker" component.
+    @author Aashish Koirala
+-->
+
+<div class="dropdown" on-toggle="handleDropDownToggle(open)" is-open="isDropDownOpen">
+    <button class="btn btn-default btn-sm" type="button" ng-click="openDropDown($event)" ng-disabled="isWorking()">
+        <i class="glyphicon glyphicon-book"></i>
+        <span ng-bind="selectedFolderLabel()" class="small"></span>
+        <span class="caret"></span>
+    </button>
+    <div class="dropdown-menu folder-picker-dropdown-menu" ak-ui-no-click>
+        <div ng-repeat="folder in folders()">
+            <label class="folder-picker-label">
+                <input type="checkbox" ng-model="folder.isSelected"/>
+                <span class="small" ng-bind="folder.treeName"></span>
+            </label>
+            <br/>
+        </div>
+        <button type="button" class="btn btn-sm btn-primary pull-right" ng-click="applyFolderSelection()" ng-disabled="isWorking()">Apply</button>
+    </div>
+</div>

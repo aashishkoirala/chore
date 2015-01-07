@@ -1,0 +1,43 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.tasks.task-export.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    task-export.html - View template for the "Export Task" section.
+    @author Aashish Koirala
+-->
+
+<div class="col-md-2"></div>
+<div class="col-xs-12 col-md-8">
+    <div class="well well-sm">
+        <span class="small">
+            You are about to export {{selectedTaskIds.length}} tasks.
+            Once exported, the text will show up in the area below.
+            You can then copy it and do with it what you please.
+        </span>
+        <br/><br/>
+        <button type="button" class="btn btn-sm btn-primary" ng-click="export()" ng-disabled="isWorking()">Export</button>
+        <button type="button" class="btn btn-sm btn-info" ng-click="cancel()" ng-disabled="isWorking()">Cancel</button>
+        <hr/>
+        <textarea class="full-width small" readonly="readonly" ng-bind="exportedData" ak-ui-elastic></textarea>
+    </div>
+</div>

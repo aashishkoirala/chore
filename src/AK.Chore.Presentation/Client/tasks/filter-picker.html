@@ -1,0 +1,40 @@
+﻿<!--
+*******************************************************************************************************************************
+* AK.Chore.Presentation.Client.tasks.filter-picker.html
+* Copyright © 2014-2015 Aashish Koirala <http://aashishkoirala.github.io>
+*
+* This file is part of CHORE.
+*
+* CHORE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* CHORE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with CHORE.  If not, see <http://www.gnu.org/licenses/>.
+*
+*******************************************************************************************************************************
+-->
+
+<!--
+    filter-picker.html - View template for the "filter-picker" component.
+    @author Aashish Koirala
+-->
+
+<div class="dropdown">
+    <button class="btn btn-default btn-sm dropdown-toggle" type="button" ng-disabled="isWorking()">
+        <i class="glyphicon glyphicon-filter"></i>
+        <span ng-bind="filterName()" class="small"></span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li class="small" ng-repeat="filter in filters()">
+            <a href="#/tasks/{{filter.id}}" ng-bind="filter.name"></a>
+        </li>
+    </ul>
+</div>
