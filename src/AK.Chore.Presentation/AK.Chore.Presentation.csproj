@@ -49,9 +49,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\AK.Commons.1.0.3\lib\net45\AK.Commons.dll</HintPath>
     </Reference>
-    <Reference Include="AK.Commons.Providers.DataAccess.MongoDb, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AK.Commons.Providers.DataAccess.MongoDb, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\AK.Commons.Providers.DataAccess.MongoDb.1.0.0\lib\net45\AK.Commons.Providers.DataAccess.MongoDb.dll</HintPath>
+      <HintPath>..\..\lib\AK.Commons.Providers.DataAccess.MongoDb.1.0.2\lib\net45\AK.Commons.Providers.DataAccess.MongoDb.dll</HintPath>
     </Reference>
     <Reference Include="AK.Commons.Web, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -82,13 +82,19 @@
       <Private>True</Private>
       <HintPath>..\..\lib\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Bson, Version=1.8.2.34, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+    <Reference Include="MongoDB.Bson">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\mongocsharpdriver.1.8.2\lib\net35\MongoDB.Bson.dll</HintPath>
+      <HintPath>..\..\lib\MongoDB.Bson.2.1.0\lib\net45\MongoDB.Bson.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver, Version=1.8.2.34, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+    <Reference Include="MongoDB.Driver">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\mongocsharpdriver.1.8.2\lib\net35\MongoDB.Driver.dll</HintPath>
+      <HintPath>..\..\lib\MongoDB.Driver.2.1.0\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>..\..\lib\MongoDB.Driver.Core.2.1.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Legacy">
+      <HintPath>..\..\lib\mongocsharpdriver.2.1.0\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -247,7 +253,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Client\oswald.eot" />
     <Content Include="Client\oswald.woff2" />
     <Content Include="Client\oswald.woff" />

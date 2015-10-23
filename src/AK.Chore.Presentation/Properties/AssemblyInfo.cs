@@ -39,5 +39,5 @@ using System.Runtime.InteropServices;
 [assembly: OwinStartup(typeof(ChoreApplication))]
 [assembly: ComVisible(false)]
 [assembly: Guid("32b9e455-47b5-4628-821e-8455ec7621f2")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]

@@ -21,9 +21,12 @@
 
 #region Namespace Imports
 
+using AK.Chore.Contracts;
 using AK.Chore.Contracts.UserProfile;
 using AK.Commons;
+using AK.Commons.Logging;
 using AK.Commons.Security;
+using AK.Commons.Services;
 using System;
 using System.ServiceModel;
 
@@ -65,9 +68,11 @@ namespace AK.Chore.Application.Services
             "<li>Export and import tasks to/from flat data.</li></ul>";
 
         private IUserProfileService userProfileService;
+        private IAppLogger logger;
         private LoginSplashInfo loginSplashInfo;
 
         public IUserProfileService UserProfileServiceOverride { get; set; }
+        public IAppLogger LoggerOverride { get; set; }
 
         public Uri RequestUriOverride { get; set; }
 
@@ -80,6 +85,11 @@ namespace AK.Chore.Application.Services
             }
         }
 
+        private IAppLogger Logger
+        {
+            get { return this.LoggerOverride ?? this.logger ?? (this.logger = AppEnvironment.Logger); }
+        }
+
         public LoginSplashInfo GetLoginSplashInfo()
         {
             return this.loginSplashInfo ??
@@ -88,7 +98,17 @@ namespace AK.Chore.Application.Services
 
         public LoginUserInfo GetUser(string userName)
         {
-            var result = this.UserProfileService.GetUserByUserName(userName);
+            OperationResult<User> result;
+            try
+            {
+                result = this.UserProfileService.GetUserByUserName(userName);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(ex);
+                result = new OperationResult<User>(GeneralResult.Error, null, ex.Message);
+            }
+
             if (result.IsSuccess)
             {
                 var user = result.Result;
@@ -109,7 +129,18 @@ namespace AK.Chore.Application.Services
 
         public LoginUserInfo CreateUser(LoginUserInfo userInfo)
         {
-            var result = this.UserProfileService.CreateUser(userInfo.UserName, userInfo.DisplayName);
+            OperationResult<User> result;
+
+            try
+            {
+                result = this.UserProfileService.CreateUser(userInfo.UserName, userInfo.DisplayName);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(ex);
+                result = new OperationResult<User>(GeneralResult.Error, null, ex.Message);
+            }
+
             if (!result.IsSuccess) throw new FaultException(new FaultReason(result.Message));
 
             userInfo.UserExists = true;
