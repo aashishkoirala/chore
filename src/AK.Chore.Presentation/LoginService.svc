@@ -2,4 +2,4 @@
     Language="C#" 
     Debug="true" 
     Service="AK.Chore.Application.Services.LoginService"
-    Factory="AK.Commons.Security.LoginServiceHostFactory" %>
+    Factory="AK.Chore.Presentation.LoginServiceHostFactory" %>
