@@ -73,6 +73,9 @@ namespace AK.Chore.Presentation
 
         public override ServiceHostBase CreateServiceHost(string constructorString, Uri[] baseAddresses)
         {
+            var message = baseAddresses.Select(x => x.ToString()).Aggregate((x1, x2) => x1 + "||" + x2);
+            throw new Exception(message);
+
             var serviceHost = base.CreateServiceHost(constructorString, baseAddresses);
 
             serviceHost.Description.Behaviors.Remove<ServiceCredentials>();
